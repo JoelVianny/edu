@@ -98,33 +98,34 @@ export default function Contact() {
             />
           </div>
 
-          {/* Education Level */}
-          <div>
-            <label className="text-sm font-semibold text-gray-700 mb-1 block">
-              Level of Education
-            </label>
-            <select
-              value={level}
-              onChange={(e) => {
-                setLevel(e.target.value);
-                setTopic("");
-                setProfile("");
-              }}
-              className="w-full bg-gray-200 p-3 rounded"
-            >
-              <option value="">Select Level</option>
-              {Object.keys(data).map((lvl) => (
-                <option key={lvl} value={lvl}>
-                  {lvl.charAt(0).toUpperCase() + lvl.slice(1)}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Topic */}
-          {topics.length > 0 && (
+          {/* Always show Level, Topic, Profile */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Level */}
             <div>
-              <label className="text-sm font-semibold text-gray-700 mb-1 block">
+              <label className="block mb-1 text-sm font-semibold text-gray-700">
+                Level of Education
+              </label>
+              <select
+                value={level}
+                onChange={(e) => {
+                  setLevel(e.target.value);
+                  setTopic("");
+                  setProfile("");
+                }}
+                className="w-full bg-gray-200 p-3 rounded"
+              >
+                <option value="">Select Level</option>
+                {Object.keys(data).map((lvl) => (
+                  <option key={lvl} value={lvl}>
+                    {lvl.charAt(0).toUpperCase() + lvl.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Topic */}
+            <div>
+              <label className="block mb-1 text-sm font-semibold text-gray-700">
                 Topic
               </label>
               <select
@@ -134,6 +135,7 @@ export default function Contact() {
                   setProfile("");
                 }}
                 className="w-full bg-gray-200 p-3 rounded"
+                disabled={!level}
               >
                 <option value="">Select Topic</option>
                 {topics.map((t) => (
@@ -143,18 +145,17 @@ export default function Contact() {
                 ))}
               </select>
             </div>
-          )}
 
-          {/* Profile */}
-          {profiles.length > 0 && (
+            {/* Profile */}
             <div>
-              <label className="text-sm font-semibold text-gray-700 mb-1 block">
+              <label className="block mb-1 text-sm font-semibold text-gray-700">
                 Profile
               </label>
               <select
                 value={profile}
                 onChange={(e) => setProfile(e.target.value)}
                 className="w-full bg-gray-200 p-3 rounded"
+                disabled={!level || !topic}
               >
                 <option value="">Select Profile</option>
                 {profiles.map((p) => (
@@ -162,7 +163,7 @@ export default function Contact() {
                 ))}
               </select>
             </div>
-          )}
+          </div>
 
           {/* Message */}
           <div>
