@@ -108,12 +108,12 @@ const data = {
 };
 
 export default function Contact() {
-  const [level, setLevel] = useState("");
-  const [profile, setProfile] = useState("");
-  const [profiles, setProfiles] = useState([]);
-  const [topics, setTopics] = useState([]);
+  const [level, setLevel] = useState<string>("");
+  const [profile, setProfile] = useState<string>("");
+  const [profiles, setProfiles] = useState<string[]>([]);
+  const [topics, setTopics] = useState<string[]>([]);
 
-  const handleLevelChange = (e) => {
+  const handleLevelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedLevel = e.target.value;
     setLevel(selectedLevel);
     setProfiles(Object.keys(data[selectedLevel] || {}));
@@ -121,7 +121,7 @@ export default function Contact() {
     setTopics([]);
   };
 
-  const handleProfileChange = (e) => {
+  const handleProfileChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedProfile = e.target.value;
     setProfile(selectedProfile);
     setTopics(data[level]?.[selectedProfile] || []);
