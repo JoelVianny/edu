@@ -28,12 +28,10 @@ const scholarshipData = {
   },
 };
 
-type ScholarshipKey = keyof typeof scholarshipData;
-
 export default function Blog() {
-  const [expanded, setExpanded] = useState<ScholarshipKey | null>(null);
+  const [expanded, setExpanded] = useState(null);
 
-  const toggleDescription = (key: ScholarshipKey) => {
+  const toggleDescription = (key) => {
     setExpanded(expanded === key ? null : key);
   };
 
@@ -45,9 +43,8 @@ export default function Blog() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-sm:gap-8">
           {Object.keys(scholarshipData).map((key) => {
-            const scholarshipKey = key as ScholarshipKey;
             const { title, description, fullDescription, imageUrl } =
-              scholarshipData[scholarshipKey];
+              scholarshipData[key];
             return (
               <div
                 key={key}
@@ -63,15 +60,13 @@ export default function Blog() {
                     {title}
                   </h3>
                   <p className="text-slate-600 text-sm leading-relaxed">
-                    {expanded === scholarshipKey
-                      ? fullDescription
-                      : description}
+                    {expanded === key ? fullDescription : description}
                   </p>
                   <button
-                    onClick={() => toggleDescription(scholarshipKey)}
+                    onClick={() => toggleDescription(key)}
                     className="mt-6 inline-block px-4 py-2 rounded tracking-wider bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-medium"
                   >
-                    {expanded === scholarshipKey ? "Show Less" : "Read More"}
+                    {expanded === key ? "Show Less" : "Read More"}
                   </button>
                 </div>
               </div>
